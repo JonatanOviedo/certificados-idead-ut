@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prueba de Login ADSO</title>
+</head>
+<body style="text-align: center; font-family: Arial;">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="user" placeholder="Usuario"><br><br>
+    <input type="password" id="pass" placeholder="Contraseña"><br><br>
+    <button onclick="probarLogin()">Entrar</button>
+    <h3 id="mensaje"></h3>
+
+    <script>
+        async function probarLogin() {
+            const u = document.getElementById('user').value;
+            const c = document.getElementById('pass').value;
+            
+            const respuesta = await fetch('http://localhost:3000/login', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ usuario: u, clave: c })
+            });
+            const datos = await respuesta.json();
+            document.getElementById('mensaje').innerText = datos.mensaje;
+        }
+    </script>
+</body>
+</html>
